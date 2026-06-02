@@ -75,6 +75,7 @@ const SCORE_COLORS = {
   Maintainability: "#60a5fa",
   Readability:     "#f9a8d4",
 }
+const API_URL = import.meta.env.VITE_API_URL;
 
 function generateScores() {
   return {
@@ -266,10 +267,13 @@ export default function App() {
     })
 
     try {
-      const response = await axios.post("http://localhost:3000/ai/get-review", {
-        code,
-        mode: reviewMode,
-      })
+      const response = await axios.post(
+  `${API_URL}/ai/get-review`,
+  {
+    code,
+    mode: reviewMode,
+  }
+);
       clearTimers()
       // No fake delay — show results immediately when API responds
       setScores(generateScores())
